@@ -1,0 +1,185 @@
+doctype html
+html
+    head
+        title WireShark
+        | &#x9;&#x9;
+        meta(http-equiv='Content-Type', content='text/html;charset=utf-8')
+        // Bootstrap
+        link(href='/bootstrap/css/bootstrap.min.css', rel='stylesheet', media='screen')
+        link(href='bootstrap/css/bootstrap-responsive.min.css', rel='stylesheet', media='screen')
+        link(href='assets/styles.css', rel='stylesheet', media='screen')
+        link(href='assets/DT_bootstrap.css', rel='stylesheet', media='screen')
+        //if lte IE 8
+          script(language='javascript', type='text/javascript', src='vendors/flot/excanvas.min.js')
+        // HTML5 shim, for IE6-8 support of HTML5 elements
+        //if lt IE 9
+          script(src='http://html5shim.googlecode.com/svn/trunk/html5.js')
+        script(src='vendors/jquery-1.12.3.min.js')
+        script(src='vendors/modernizr-2.6.2-respond-1.1.0.min.js')
+        script(src='bootstrap/js/bootstrap.min.js')
+        script(src='vendors/datatables/js/jquery.dataTables.min.js')
+        script(src='assets/scripts.js')
+        script(src='assets/DT_bootstrap.js')
+        script.
+            /* Formatting function for row details - modify as you need */
+            function format ( d ) {
+                // `d` is the original data object for the row
+                return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
+                        '<tr>'+
+                        '<td>Full name:</td>'+
+                        '<td>'+d.name+'</td>'+
+                        '</tr>'+
+                        '<tr>'+
+                        '<td>Extension number:</td>'+
+                        '<td>'+d.extn+'</td>'+
+                        '</tr>'+
+                        '<tr>'+
+                        '<td>Extra info:</td>'+
+                        '<td>And any further details here (images etc)...</td>'+
+                        '</tr>'+
+                        '</table>';
+            }
+            $(document).ready(function() {
+                var table = $('#example').DataTable( {
+                    destroy : true,
+                    "ajax": "data/objects.json",
+                    "columns": [
+                        { "data": "id" },
+                        { "data": "source" },
+                        { "data": "destination"},
+                        {
+                            "className":      'details-control',
+                            "orderable":      false,
+                            "data":           null,
+                            "defaultContent": ''
+                        },
+                        { "data": "length" },
+                        { "data": "number of bytes" }
+                    ],
+                    "order": [[1, 'asc']]
+                } );
+                // Add event listener for opening and closing details
+                $('#example tbody').on('click', 'td.details-control', function () {
+                    var tr = $(this).closest('tr');
+                    var row = table.row( tr );
+                    if ( row.child.isShown() ) {
+                        // This row is already open - close it
+                        row.child.hide();
+                        tr.removeClass('shown');
+                    }
+                    else {
+                        // Open this row
+                        row.child( format(row.data()) ).show();
+                        tr.addClass('shown');
+                    }
+                } );
+            } );
+        style(type='text/css').
+            td.details-control {
+                background: url('images/details_open.png') no-repeat center center;
+                cursor: pointer;
+            }
+            tr.shown td.details-control {
+                background: url('images/details_close.png') no-repeat center center;
+            }
+    body
+        .navbar.navbar-fixed-top
+            .navbar-inner
+                .container-fluid
+                    a.btn.btn-navbar(data-toggle='collapse', data-target='.nav-collapse')
+                        span.icon-bar
+                        span.icon-bar
+                        span.icon-bar
+                    a.brand(href='#') WireShark
+                    .nav-collapse.collapse
+                        ul.nav.pull-right
+                            li.dropdown
+                                a.dropdown-toggle(href='#', role='button', data-toggle='dropdown')
+                                    i.icon-user
+                                    | &#x7BA1;&#x7406;&#x5458;
+                                    i.caret
+                                ul.dropdown-menu
+                                    li
+                                        a(tabindex='-1', href='#') &#x4E2A;&#x4EBA;&#x8D44;&#x6599;
+                                    li.divider
+                                    li
+                                        a(tabindex='-1', href='index.html') &#x9000;&#x51FA;
+                        ul.nav
+                            li.dropdown
+                                a.dropdown-toggle(href='#', data-toggle='dropdown')
+                                    | &#x8BBE;&#x7F6E;
+                                    b.caret
+                                ul#menu1.dropdown-menu
+                                    li
+                                        a(href='#')
+                                            | &#x5DE5;&#x5177;
+                                            i.icon-arrow-right
+                                        ul.dropdown-menu.sub-menu
+                                            li
+                                                a(href='#') &#x62A5;&#x8868;
+                                            li
+                                                a(href='#') &#x65E5;&#x5FD7;
+                                            li
+                                                a(href='#') &#x9519;&#x8BEF;
+                                    li
+                                        a(href='#') SEO&#x8BBE;&#x7F6E;
+                                    li
+                                        a(href='#') &#x5176;&#x4ED6;&#x94FE;&#x63A5;
+                                    li.divider
+                                    li
+                                        a(href='#') &#x5176;&#x4ED6;&#x94FE;&#x63A5;
+                                    li
+                                        a(href='#') &#x5176;&#x4ED6;&#x94FE;&#x63A5;
+                    // /.nav-collapse
+        .container-fluid
+            .row-fluid
+                #sidebar.span2
+                    ul.nav.nav-list.bs-docs-sidenav.nav-collapse.collapse
+                        li
+                            a(href='index.html')
+                                i.icon-chevron-right
+                                |  &#x9996;&#x9875;
+                        li.active
+                            a(href='tables.html')
+                                i.icon-chevron-right
+                                |  &#x8868;&#x683C;
+                        li
+                            a(href='length.html')
+                                i.icon-chevron-right
+                                |  Length Chart
+                        li
+                            a(href='number.html')
+                                i.icon-chevron-right
+                                | Number
+                        li
+                            a(href='number_of_bytes.html')
+                                i.icon-chevron-right
+                                | Number Of Bytes
+                // /span
+                #content.span10
+                    .row-fluid
+                        // block
+                        .block
+                            .navbar.navbar-inner.block-header
+                                .muted.pull-left Bootstrap dataTables
+                            .block-content.collapse.in
+                                .span12
+                                    table#example.table.table-striped.table-bordered(cellpadding='0', cellspacing='0', border='0')
+                                        thead
+                                            tr
+                                                th id
+                                                th source
+                                                th destination
+                                                th
+                                                th length
+                                                th number of bytes
+                                        tfoot
+                                            tr
+                                                th id
+                                                th source
+                                                th destination
+                                                th
+                                                th length
+                                                th number of bytes
+                        // /block
+        // /.fluid-container

@@ -1,0 +1,150 @@
+doctype html
+html
+  head
+    title WireShark
+    | &#x9;&#x9;
+    meta(http-equiv='Content-Type', content='text/html;charset=utf-8')
+    // Bootstrap
+    link(href='bootstrap/css/bootstrap.min.css', rel='stylesheet', media='screen')
+    link(href='bootstrap/css/bootstrap-responsive.min.css', rel='stylesheet', media='screen')
+    link(href='assets/styles.css', rel='stylesheet', media='screen')
+    //if lte IE 8
+      script(language='javascript', type='text/javascript', src='vendors/flot/excanvas.min.js')
+    // HTML5 shim, for IE6-8 support of HTML5 elements
+    //if lt IE 9
+      script(src='http://html5shim.googlecode.com/svn/trunk/html5.js')
+    script(src='vendors/modernizr-2.6.2-respond-1.1.0.min.js')
+    script(src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js')
+    script(src='http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js')
+    script(src='morris/morris.js')
+    script(src='http://cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.min.js')
+    script(src='morris/example.js')
+    link(rel='stylesheet', href='http://cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.min.css')
+    link(rel='stylesheet', href='morris/morris.css')
+  body
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        .container-fluid
+          a.btn.btn-navbar(data-toggle='collapse', data-target='.nav-collapse')
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.brand(href='#') WireShark
+          .nav-collapse.collapse
+            ul.nav.pull-right
+              li.dropdown
+                a.dropdown-toggle(href='#', role='button', data-toggle='dropdown')
+                  i.icon-user
+                  | &#x7BA1;&#x7406;&#x5458;
+                  i.caret
+                ul.dropdown-menu
+                  li
+                    a(tabindex='-1', href='#') &#x4E2A;&#x4EBA;&#x8D44;&#x6599;
+                  li.divider
+                  li
+                    a(tabindex='-1', href='index.html') &#x9000;&#x51FA;
+            ul.nav
+              li.dropdown
+                a.dropdown-toggle(href='#', data-toggle='dropdown')
+                  | &#x8BBE;&#x7F6E;
+                  b.caret
+                ul#menu1.dropdown-menu
+                  li
+                    a(href='#')
+                      | &#x5DE5;&#x5177;
+                      i.icon-arrow-right
+                    ul.dropdown-menu.sub-menu
+                      li
+                        a(href='#') &#x62A5;&#x8868;
+                      li
+                        a(href='#') &#x65E5;&#x5FD7;
+                      li
+                        a(href='#') &#x9519;&#x8BEF;
+                  li
+                    a(href='#') SEO&#x8BBE;&#x7F6E;
+                  li
+                    a(href='#') &#x5176;&#x4ED6;&#x94FE;&#x63A5;
+                  li.divider
+                  li
+                    a(href='#') &#x5176;&#x4ED6;&#x94FE;&#x63A5;
+                  li
+                    a(href='#') &#x5176;&#x4ED6;&#x94FE;&#x63A5;
+          // /.nav-collapse
+    .container-fluid
+      .row-fluid
+        #sidebar.span2
+          ul.nav.nav-list.bs-docs-sidenav.nav-collapse.collapse
+            li
+              a(href='index.html')
+                i.icon-chevron-right
+                |  &#x9996;&#x9875;
+            li
+              a(href='tables.html')
+                i.icon-chevron-right
+                |  &#x8868;&#x683C;
+            li
+              a(href='length.html')
+                i.icon-chevron-right
+                |  Length Chart
+            li
+              a(href='number.html')
+                i.icon-chevron-right
+                | Number
+            li
+              a(href='number_of_bytes.html')
+                i.icon-chevron-right
+                | Number Of Bytes
+        // /span
+        #content.span10
+          // morris stacked chart
+          h2#test Number Of Bytes
+          #graph
+          script.
+            //                        var bytes = [];
+            //                        $.ajax({
+            //                            type:"GET",
+            //                            url:"data/objects.json",
+            //                            dataType: "json",
+            //                            success: function(data){
+            //                                $.each(data,function(i,item){
+            //                                    var item_ex = {};
+            //                                    item_ex["id"] = item.id;
+            //                                    item_ex["number"] = item.number;
+            //                                    bytes.push(item_ex);
+            //                                })
+            //                            }
+            //                        });
+            var bytes = [
+            {id: 1, number: 34},
+            {id: 2, number: 24},
+            {id: 3, number: 3},
+            {id: 4, number: 12},
+            {id: 5, number: 13},
+            {id: 6, number: 22},
+            {id: 7, number: 5},
+            {id: 8, number: 26},
+            {id: 9, number: 12},
+            {id: 10, number: 19}];
+            Morris.Line({
+            element: 'graph',
+            data: bytes,
+            xkey: 'id',
+            ykeys: ['number'],
+            labels: ['number of bytes'],
+            parseTime: false
+            });
+    // /.fluid-container
+    link(rel='stylesheet', href='vendors/morris/morris.css')
+    script(src='vendors/jquery-1.9.1.min.js')
+    script(src='vendors/jquery.knob.js')
+    script(src='vendors/raphael-min.js')
+    script(src='vendors/morris/morris.js')
+    script(src='bootstrap/js/bootstrap.min.js')
+    script(src='vendors/flot/jquery.flot.js')
+    script(src='vendors/flot/jquery.flot.categories.js')
+    script(src='vendors/flot/jquery.flot.pie.js')
+    script(src='vendors/flot/jquery.flot.time.js')
+    script(src='vendors/flot/jquery.flot.stack.js')
+    script(src='vendors/flot/jquery.flot.resize.js')
+    script(src='assets/scripts.js')
+    script.
