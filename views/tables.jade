@@ -42,19 +42,19 @@ html
             $(document).ready(function() {
                 var table = $('#example').DataTable( {
                     destroy : true,
-                    "ajax": "data/objects.json",
+                    "ajax": "data/data.json",
                     "columns": [
-                        { "data": "id" },
-                        { "data": "source" },
-                        { "data": "destination"},
+                        { "data": 'timestamp.$numberLong' },
+                        { "data": "ethernet.src" },
+                        { "data": "ethernet.dst"},
                         {
                             "className":      'details-control',
                             "orderable":      false,
                             "data":           null,
                             "defaultContent": ''
                         },
-                        { "data": "length" },
-                        { "data": "number of bytes" }
+                        { "data": "ethernet.length" },
+                        { "data": "ethernet.offset" }
                     ],
                     "order": [[1, 'asc']]
                 } );
