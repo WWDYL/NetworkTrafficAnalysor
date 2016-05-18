@@ -29,71 +29,32 @@ html
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          a.brand(href='#') WireShark
-          .nav-collapse.collapse
-            ul.nav.pull-right
-              li.dropdown
-                a.dropdown-toggle(href='#', role='button', data-toggle='dropdown')
-                  i.icon-user
-                  | &#x7BA1;&#x7406;&#x5458;
-                  i.caret
-                ul.dropdown-menu
-                  li
-                    a(tabindex='-1', href='#') &#x4E2A;&#x4EBA;&#x8D44;&#x6599;
-                  li.divider
-                  li
-                    a(tabindex='-1', href='index.html') &#x9000;&#x51FA;
-            ul.nav
-              li.dropdown
-                a.dropdown-toggle(href='#', data-toggle='dropdown')
-                  | &#x8BBE;&#x7F6E;
-                  b.caret
-                ul#menu1.dropdown-menu
-                  li
-                    a(href='#')
-                      | &#x5DE5;&#x5177;
-                      i.icon-arrow-right
-                    ul.dropdown-menu.sub-menu
-                      li
-                        a(href='#') &#x62A5;&#x8868;
-                      li
-                        a(href='#') &#x65E5;&#x5FD7;
-                      li
-                        a(href='#') &#x9519;&#x8BEF;
-                  li
-                    a(href='#') SEO&#x8BBE;&#x7F6E;
-                  li
-                    a(href='#') &#x5176;&#x4ED6;&#x94FE;&#x63A5;
-                  li.divider
-                  li
-                    a(href='#') &#x5176;&#x4ED6;&#x94FE;&#x63A5;
-                  li
-                    a(href='#') &#x5176;&#x4ED6;&#x94FE;&#x63A5;
+          a.brand(href='#') 网络异常流量检测系统
           // /.nav-collapse
     .container-fluid
       .row-fluid
         #sidebar.span2
           ul.nav.nav-list.bs-docs-sidenav.nav-collapse.collapse
             li
-              a(href='index.html')
+              a(href='index')
                 i.icon-chevron-right
-                |  &#x9996;&#x9875;
+                |  首页
+            li.active
+              a(href='tables.jade')
+                i.icon-chevron-right
+                |  统计表
             li
-              a(href='tables.html')
+              a(href='length.jade')
                 i.icon-chevron-right
-                |  &#x8868;&#x683C;
+                |  caplen
             li
-              a(href='length.html')
+              a(href='number.jade')
                 i.icon-chevron-right
-                |  Length Chart
+                |  wirelen
             li
-              a(href='number.html')
+              a(href='number_of_bytes.jade')
                 i.icon-chevron-right
-                | Number
-            li
-              a(href='number_of_bytes.html')
-                i.icon-chevron-right
-                | Number Of Bytes
+                |  ethernet.src
         // /span
         #content.span10
           // morris stacked chart
