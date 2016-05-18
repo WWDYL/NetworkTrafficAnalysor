@@ -22,21 +22,86 @@ html
         script(src='assets/DT_bootstrap.js')
         script.
             /* Formatting function for row details - modify as you need */
-            function format ( d ) {
+            function format(d) {
                 // `d` is the original data object for the row
-                return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
-                        '<tr>'+
-                        '<td>Full name:</td>'+
-                        '<td>'+d.name+'</td>'+
-                        '</tr>'+
-                        '<tr>'+
-                        '<td>Extension number:</td>'+
-                        '<td>'+d.extn+'</td>'+
-                        '</tr>'+
-                        '<tr>'+
-                        '<td>Extra info:</td>'+
-                        '<td>And any further details here (images etc)...</td>'+
-                        '</tr>'+
+                return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+                        '<tr>' +
+                        '<td>Ethernet:</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td>Src:</td>' +
+                        '<td>' + d.ethernet.src + '</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td>Dst:</td>' +
+                        '<td>' + d.ethernet.dst + '</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td>Length:</td>' +
+                        '<td>' + d.ethernet.length + '</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td>Offset:</td>' +
+                        '<td>' + d.ethernet.offset + '</td>' +
+                        '</tr>' +
+                        '</table>';
+            }
+
+            function format1(d) {
+                // `d` is the original data object for the row
+                return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+                        '<tr>' +
+                        '<td>Ip:</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td>Src:</td>' +
+                        '<td>' + d.ip.src + '</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td>Dst:</td>' +
+                        '<td>' + d.ip.dst + '</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td>Length:</td>' +
+                        '<td>' + d.ip.length + '</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td>Offset:</td>' +
+                        '<td>' + d.ip.offset + '</td>' +
+                        '</tr>' +
+                        '</table>';
+            }
+
+            function format2(d) {
+                // `d` is the original data object for the row
+                return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+                        '<tr>' +
+                        '<td>Tcp:</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td>Src:</td>' +
+                        '<td>' + d.tcp.src + '</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td>Dst:</td>' +
+                        '<td>' + d.tcp.dst + '</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td>Ack:</td>' +
+                        '<td>' + d.tcp.ack + '</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td>Rst:</td>' +
+                        '<td>' + d.tcp.rst + '</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td>Syn:</td>' +
+                        '<td>' + d.tcp.syn + '</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td>Fin:</td>' +
+                        '<td>' + d.tcp.fin + '</td>' +
+                        '</tr>' +
                         '</table>';
             }
             $(document).ready(function() {
@@ -44,43 +109,100 @@ html
                     destroy : true,
                     "ajax": "data/data.json",
                     "columns": [
+                        { "data": '_id.$oid'},
                         { "data": 'timestamp.$numberLong' },
-                        { "data": "ethernet.src" },
-                        { "data": "ethernet.dst"},
+                        { "data": "caplen" },
+                        { "data": "wirelen"},
                         {
                             "className":      'details-control',
                             "orderable":      false,
                             "data":           null,
                             "defaultContent": ''
                         },
-                        { "data": "ethernet.length" },
-                        { "data": "ethernet.offset" }
+                        {
+                            "className": 'details-control-1',
+                            "orderable": false,
+                            "data": null,
+                            "defaultContent": ''
+                        },
+                        {
+                            "className": 'details-control-2',
+                            "orderable": false,
+                            "data": null,
+                            "defaultContent": ''
+                        }
                     ],
                     "order": [[1, 'asc']]
                 } );
                 // Add event listener for opening and closing details
                 $('#example tbody').on('click', 'td.details-control', function () {
                     var tr = $(this).closest('tr');
-                    var row = table.row( tr );
-                    if ( row.child.isShown() ) {
+                    var row = table.row(tr);
+
+                    if (row.child.isShown()) {
                         // This row is already open - close it
                         row.child.hide();
-                        tr.removeClass('shown');
+                        $(this).removeClass('shown');
                     }
                     else {
                         // Open this row
-                        row.child( format(row.data()) ).show();
-                        tr.addClass('shown');
+                        row.child(format(row.data())).show();
+                        $(this).addClass('shown');
                     }
-                } );
+                });
+
+                $('#example tbody').on('click', 'td.details-control-1', function () {
+                    var tr = $(this).closest('tr');
+                    var row = table.row(tr);
+
+                    if (row.child.isShown()) {
+                        // This row is already open - close it
+                        row.child.hide();
+                        $(this).removeClass('shown');
+                    }
+                    else {
+                        // Open this row
+                        row.child(format1(row.data())).show();
+                        $(this).addClass('shown');
+                    }
+                });
+
+                $('#example tbody').on('click', 'td.details-control-2', function () {
+                    var tr = $(this).closest('tr');
+                    var row = table.row(tr);
+
+                    if (row.child.isShown()) {
+                        // This row is already open - close it
+                        row.child.hide();
+                        $(this).removeClass('shown');
+                    }
+                    else {
+                        // Open this row
+                        row.child(format2(row.data())).show();
+                        $(this).addClass('shown');
+                    }
+                });
             } );
         style(type='text/css').
             td.details-control {
-                background: url('images/details_open.png') no-repeat center center;
+                background: url('/images/details_open.png') no-repeat center center;
                 cursor: pointer;
             }
-            tr.shown td.details-control {
-                background: url('images/details_close.png') no-repeat center center;
+
+
+            td.details-control-1 {
+                background: url('/images/details_open.png') no-repeat center center;
+                cursor: pointer;
+            }
+
+
+            td.details-control-2 {
+                background: url('/images/details_open.png') no-repeat center center;
+                cursor: pointer;
+            }
+
+            td.shown {
+                background: url('/images/details_close.png') no-repeat center center;
             }
     body
         .navbar.navbar-fixed-top
@@ -167,19 +289,21 @@ html
                                     table#example.table.table-striped.table-bordered(cellpadding='0', cellspacing='0', border='0')
                                         thead
                                             tr
-                                                th id
-                                                th source
-                                                th destination
-                                                th
-                                                th length
-                                                th number of bytes
+                                                th _id
+                                                th timestamp
+                                                th caplen
+                                                th wirelen
+                                                th ethernet
+                                                th ip
+                                                th tcp
                                         tfoot
                                             tr
-                                                th id
-                                                th source
-                                                th destination
-                                                th
-                                                th length
-                                                th number of bytes
+                                                th _id
+                                                th timestamp
+                                                th caplen
+                                                th wirelen
+                                                th ethernet
+                                                th ip
+                                                th tcp
                         // /block
         // /.fluid-container
